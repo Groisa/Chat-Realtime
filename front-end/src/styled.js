@@ -51,7 +51,7 @@ export const ButtonStyled = styled.button`
         padding: 5px;
         font-size: 18px;
         width: 70%;
-        margin-top: 20px ;
+        margin-top: 21px ;
         cursor: pointer;
 `
 export const InputStyled = styled.input`
