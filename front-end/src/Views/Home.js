@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAuthPhotoAll } from "../Services/auth";
 import { chatMensagem, getPhoto, photoMensagem } from "../Services/chatMensagem";
-import { db } from "../Services/firebase";
+import { auth, auth, db } from "../Services/firebase";
 import { singOut } from "../Services/singOut";
 import { ButtonStyled, ChatData, ChatInput, ChatView, ContainerStyled, CotainerMensagem, InputStyled, StyledMensagem } from "../styled";
 export function Homeview() {
@@ -77,7 +77,6 @@ export function Homeview() {
                             }
                         </CotainerMensagem>
                     )}
-
                 </ChatData>
                 <ChatInput>
                     <form onSubmit={formik.handleSubmit}>
