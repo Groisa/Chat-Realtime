@@ -1,3 +1,5 @@
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AuthGoogle } from "../Services/auth";
@@ -13,9 +15,11 @@ export function LoginPage () {
             alert('Erro ao fazer login')
         }
     }
+    
     return (
         <ContainerStyled>
             <ButtonStyled onClick={handleLogin}>Login</ButtonStyled>
+           
         </ContainerStyled>
     )
 }
