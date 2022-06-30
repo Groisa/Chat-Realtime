@@ -22,43 +22,38 @@ export function Homeview() {
             await chatMensagem(values.chatText)
         }
     })
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget)
-        const file = formData.get('file')
-        if (file && file.size > 0) {
-            setloading(true)
-            await photoMensagem(file)
-            setloading(false)
-            alert('Foto cadastra com sucesso')
-        }
-    }
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData(e.currentTarget)
+    //     const file = formData.get('file')
+    //     if (file && file.size > 0) {
+    //         setloading(true)
+    //         await photoMensagem(file)
+    //         setloading(false)
+    //         alert('Foto cadastra com sucesso')
+    //     }
+    //     location.reload()
+    // }
     useEffect(() => {
         const getMensagem = async () => {
             const colectionMensagem = collection(db, 'mensagem')
             onSnapshot(colectionMensagem, (snapshot) => {
                 const data = snapshot.docs.map(mensagem => mensagem.data())
                 setDataMensagens(data.sort((a, b) => {
-                    const dateA = new Date(
-                        a.dateCreate.seconds * 1000 + a.dateCreate.nanoseconds / 1000000,
-                    );
-                    const dateB = new Date(
-                        b.dateCreate.seconds * 1000 + a.dateCreate.nanoseconds / 1000000,
-                    );
-                    return dateB + dateA
+                    return new Date(a.dateCreate) - new Date(b.dateCreate) 
                 }))
             })
         }
         getMensagem()
-        const getPhotoUser = async () => {
-            const getPhoto = await getAuthPhotoAll()
-            if (!getPhoto) {
-                alert('Insira sua foto de Perfil')
-            } else {
-                setPhotoUrl(getPhoto)
-            }
-        }
-        getPhotoUser()
+        // const getPhotoUser = async () => {
+        //     const getPhoto = await getAuthPhotoAll()
+        //     if (!getPhoto) {
+        //         alert('Insira sua foto de Perfil')
+        //     } else {
+        //         setPhotoUrl(getPhoto)
+        //     }
+        // }
+        // getPhotoUser()
     }, [])
     return (
         <ContainerStyled>
@@ -68,12 +63,13 @@ export function Homeview() {
                         <CotainerMensagem>
                             <StyledMensagem key={mensagem.id}>
                                 <p>{mensagem.mensagem}</p>
+                                <span>{mensagem.userEmailSend}</span>
                             </StyledMensagem>
-                            {photoUrl.length > 0 &&
+                            {/* {photoUrl.length > 0 &&
                                 photoUrl.map((photo) =>
                                     <img src={photo.url} />
                                 )
-                            }
+                            } */}
                         </CotainerMensagem>
                     )}
                 </ChatData>
@@ -87,7 +83,7 @@ export function Homeview() {
                     </form>
                 </ChatInput>
             </ChatView>
-            <PStyled>Insira sua Foto de perfil</PStyled>
+            {/* <PStyled>Insira sua Foto de perfil</PStyled>
             <InpurtStyled onSubmit={handleSubmit}>
                 <input
                     type='file'
@@ -99,7 +95,7 @@ export function Homeview() {
                 {loading &&
                     <p>Enviando ...</p>
                 }
-            </InpurtStyled>
+            </InpurtStyled> */}
             <ButtonStyled onClick={Loggout}>Sair</ButtonStyled>
         </ContainerStyled>
     )

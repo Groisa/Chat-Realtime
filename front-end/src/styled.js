@@ -80,9 +80,15 @@ export const StyledMensagem = styled.div`
     margin-bottom: 30px ;
     display: flex;
     margin-top: 30px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     p {
         margin-left: 5%;
-        padding-top: 2%;
+        padding-top: 1%;
+    }
+    span {
+        padding-bottom: 2% ;
     }
    
 `
