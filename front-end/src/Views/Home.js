@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAuthPhotoAll } from "../Services/auth";
 import { chatMensagem, getPhoto, photoMensagem } from "../Services/chatMensagem";
-import { auth, auth, db } from "../Services/firebase";
+import {  auth, db } from "../Services/firebase";
 import { singOut } from "../Services/singOut";
 import { ButtonStyled, ChatData, ChatInput, ChatView, ContainerStyled, CotainerMensagem, InputStyled, StyledMensagem } from "../styled";
 export function Homeview() {
@@ -32,7 +32,6 @@ export function Homeview() {
             setloading(false)
             alert('Foto cadastra com sucesso')
         }
-        document.location.reload()
     }
     useEffect(() => {
         const getMensagem = async () => {
