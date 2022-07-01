@@ -37,7 +37,7 @@ export function Homeview() {
             onSnapshot(colectionMensagem, (snapshot) => {
                 const data = snapshot.docs.map(mensagem => mensagem.data())
                 setDataMensagens(data.sort((a, b) => {
-                    return new Date(a.dateCreate) - new Date(b.dateCreate)
+                    return new Date(b.dateCreate) - new Date(a.dateCreate)
                 }))
             })
         }
