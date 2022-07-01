@@ -80,15 +80,17 @@ export const StyledMensagem = styled.div`
     margin-bottom: 30px ;
     display: flex;
     margin-top: 30px;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    word-wrap: break-word
     p {
-        margin-left: 5%;
-        padding-top: 1%;
+        padding: 0;
+        margin-left: 20px;
     }
     span {
-        padding-bottom: 2% ;
+        margin-top: 5px;
+        padding: 0;
+        margin-left: 20px;
     }
    
 `
@@ -100,5 +102,18 @@ export const CotainerMensagem = styled.div`
         width: 70px;
         height: 70px;
         border-radius: 60px;
+    }
+`
+export const StyledMensagemContainer = styled.div`
+    width: 100%;
+    height: 95%;
+    background-color: #000;
+    color: #fff;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+        width: 90%;
     }
 `

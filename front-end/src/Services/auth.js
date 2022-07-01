@@ -15,16 +15,3 @@ export const AuthGoogle = async () => {
         const credential = GoogleAuthProvider.credentialFromError(error);
     }
 }
-export const getAuthPhotoAll = async () => {
-    let list = []
-      onAuthStateChanged(auth, async (user) => {
-        const docRef = doc(db, 'authCurrente', user.uid)
-        const docSnap = await getDoc(docRef)
-        const docSnapUrl = docSnap.data().url
-        list.push({
-            url: docSnapUrl
-        }
-        )
-    })
-    return list
-}

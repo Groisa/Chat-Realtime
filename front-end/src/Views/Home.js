@@ -2,15 +2,13 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getAuthPhotoAll } from "../Services/auth";
 import { chatMensagem, getPhoto, photoMensagem } from "../Services/chatMensagem";
-import {  auth, db } from "../Services/firebase";
+import { auth, db } from "../Services/firebase";
 import { singOut } from "../Services/singOut";
-import { ButtonStyled, ChatData, ChatInput, ChatView, ContainerStyled, CotainerMensagem, InputStyled, StyledMensagem } from "../styled";
+import { ButtonStyled, ChatData, ChatInput, ChatView, ContainerStyled, CotainerMensagem, InputStyled, StyledMensagem, StyledMensagemContainer } from "../styled";
 export function Homeview() {
     const [loading, setloading] = useState(false)
     const [dataMenagens, setDataMensagens] = useState([])
-    const [photoUrl, setPhotoUrl] = useState('')
     const Loggout = async () => {
         await singOut()
     }
@@ -22,38 +20,28 @@ export function Homeview() {
             await chatMensagem(values.chatText)
         }
     })
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.currentTarget)
-    //     const file = formData.get('file')
-    //     if (file && file.size > 0) {
-    //         setloading(true)
-    //         await photoMensagem(file)
-    //         setloading(false)
-    //         alert('Foto cadastra com sucesso')
-    //     }
-    //     location.reload()
-    // }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget)
+        const file = formData.get('file')
+        if (file && file.size > 0) {
+            setloading(true)
+            await photoMensagem(file)
+            setloading(false)
+            alert('Foto cadastra com sucesso')
+        }
+    }
     useEffect(() => {
         const getMensagem = async () => {
             const colectionMensagem = collection(db, 'mensagem')
             onSnapshot(colectionMensagem, (snapshot) => {
                 const data = snapshot.docs.map(mensagem => mensagem.data())
                 setDataMensagens(data.sort((a, b) => {
-                    return new Date(a.dateCreate) - new Date(b.dateCreate) 
+                    return new Date(a.dateCreate) - new Date(b.dateCreate)
                 }))
             })
         }
         getMensagem()
-        // const getPhotoUser = async () => {
-        //     const getPhoto = await getAuthPhotoAll()
-        //     if (!getPhoto) {
-        //         alert('Insira sua foto de Perfil')
-        //     } else {
-        //         setPhotoUrl(getPhoto)
-        //     }
-        // }
-        // getPhotoUser()
     }, [])
     return (
         <ContainerStyled>
@@ -61,15 +49,13 @@ export function Homeview() {
                 <ChatData>
                     {dataMenagens.map(mensagem =>
                         <CotainerMensagem>
-                            <StyledMensagem key={mensagem.id}>
-                                <p>{mensagem.mensagem}</p>
-                                <span>{mensagem.userEmailSend}</span>
+                            <StyledMensagem>
+                                <span>{mensagem.userName}</span>
+                                <StyledMensagemContainer>
+                                    <p>{mensagem.mensagem}</p>
+                                </StyledMensagemContainer>
                             </StyledMensagem>
-                            {/* {photoUrl.length > 0 &&
-                                photoUrl.map((photo) =>
-                                    <img src={photo.url} />
-                                )
-                            } */}
+                            <img src={mensagem.docSnapUrl} />
                         </CotainerMensagem>
                     )}
                 </ChatData>
@@ -83,7 +69,7 @@ export function Homeview() {
                     </form>
                 </ChatInput>
             </ChatView>
-            {/* <PStyled>Insira sua Foto de perfil</PStyled>
+            <PStyled>Insira sua Foto de perfil</PStyled>
             <InpurtStyled onSubmit={handleSubmit}>
                 <input
                     type='file'
@@ -95,7 +81,7 @@ export function Homeview() {
                 {loading &&
                     <p>Enviando ...</p>
                 }
-            </InpurtStyled> */}
+            </InpurtStyled>
             <ButtonStyled onClick={Loggout}>Sair</ButtonStyled>
         </ContainerStyled>
     )
