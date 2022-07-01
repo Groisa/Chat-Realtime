@@ -3,7 +3,7 @@
 Projeto de chat em tempo real. A idea principal foi implementa uma busca dinâmica de mensagens, e seu envio dinâmico. O projeto foi criado com a ajuda do Firebase,
 este projeto trás conceitos de banco de dados em tempo real, armazenamento de arquivos de fotos e o login com o google.
   <div align='center'> 
-    <img src="https://user-images.githubusercontent.com/98929007/174929281-9358221c-ce01-45ef-a70e-e407344c0d7a.gif" />
+    <img src="https://user-images.githubusercontent.com/98929007/176811872-a122fb4b-432c-48b9-bc75-e3690a11c31a.gif" />
   </div>
   
 
